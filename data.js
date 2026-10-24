@@ -69,7 +69,7 @@ window.APP_DATA = {
       },
       {
         id: "cat", label: "반려묘", emoji: "🐱", pet: true, ready: true, needsHelpLine: false,
-        intro: "건강한 고양이는 보통 목욕이 필요 없어요. 많이 더러워졌을 때만 해요.",
+        intro: "건강한 고양이는 보통 목욕이 필요 없어요. 많이 지저분해졌을 때만 해요.",
         prep: ["수건", "미끄럼 방지 매트", "간식(칭찬용)", "조용한 공간"],
         steps: [
           "조용한 공간에 준비물을 미리 놓아요.",
