@@ -87,4 +87,13 @@ function care(){
   const go_=document.getElementById("go");go_.onclick=view;
 }
 window.addEventListener("hashchange",render);render();
+// 진입 화면: 세로 포스터를 보여 주고, 누르면 메인 화면으로 넘어감. 세션당 한 번, 홈으로 들어올 때만.
+(function(){
+  const h=location.hash;if(sessionStorage.getItem("splash")||(h&&h!=="#home"))return;
+  const s=document.createElement("div");s.id="splash";s.setAttribute("role","button");s.tabIndex=0;s.setAttribute("aria-label","화면을 눌러 시작하기");
+  s.innerHTML=`<img src="${D.art.splash.src}" alt="${D.art.splash.alt}"><p>화면을 눌러 시작하기</p>`;
+  const close=()=>{sessionStorage.setItem("splash","1");s.remove();window.scrollTo(0,0)};
+  s.onclick=close;s.onkeydown=e=>{if(e.key==="Enter"||e.key===" ")close()};
+  document.body.appendChild(s);s.focus();
+})();
 })();
