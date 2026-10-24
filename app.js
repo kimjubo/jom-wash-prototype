@@ -16,8 +16,9 @@ function home(){
   $.innerHTML=`<h1>${D.tagline}</h1><p class="sub">나는 어디에 가까울까요?</p>
   ${D.types.map(t=>`<button data-t="${t.id}"><b>${t.label}</b></button>`).join("")}
   <p class="small">${D.typeNote}</p>
-  <h2>오늘의 개운 한마디</h2><button id="ad" class="ghost">${D.adButton}</button><div id="daily" class="small"></div>
-  <p class="small">광고는 선택이에요. 모든 기능은 광고 없이 쓸 수 있어요.</p>`;
+  <h2>오늘의 개운 한마디</h2><button id="ad" class="ghost">${D.adButton}</button><p class="small mock"><b>시안 표시(실제 광고 아님)</b> · 광고 자리표시 버튼이며 SDK는 연결되어 있지 않아요.</p><div id="daily" class="small"></div>
+  <p class="small">광고는 선택이에요. 모든 기능은 광고 없이 쓸 수 있어요.</p>
+  <p class="small preview">미리보기용 시안, 앱인토스 배포본 아님</p>`;
   $.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{
     const t=D.types.find(x=>x.id===b.dataset.t);S.type=t.id;save();S.line=t.line;go("#"+t.go)});
   // 실제 광고 SDK 연결 전 자리표시. 광고 시청 완료 콜백에서만 문구를 보여준다.
