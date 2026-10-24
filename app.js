@@ -23,7 +23,7 @@ function home(){
   $.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{
     const t=D.types.find(x=>x.id===b.dataset.t);S.type=t.id;save();S.line=t.line;go("#"+t.go)});
   // 실제 광고 SDK 연결 전 자리표시. 광고 시청 완료 콜백에서만 문구를 보여준다.
-  document.getElementById("ad").onclick=()=>{document.getElementById("daily").textContent=pick(D.dailyLines)};
+  document.getElementById("ad").onclick=()=>{document.getElementById("daily").innerHTML=esc(pick(D.dailyLines))+img("fresh","stk")};
 }
 const today=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
 const dayStr=o=>{const d=new Date();d.setDate(d.getDate()-o);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
@@ -40,17 +40,17 @@ function check(){
   const show=(m,g,k)=>{setImg(k);rr.hidden=false;rr.textContent=pick(m);gg.hidden=!g};
   yb.onclick=()=>{S.days=S.days||[];const t=today(),i=S.days.indexOf(t);
     if(i>=0){S.days.splice(i,1);rr.hidden=true;setImg('scold')}else{S.days.push(t);show(c.yesReply,false,'fresh')}save();paint()};
-  document.getElementById("n").onclick=()=>show(c.noReply,true,"blanket");
+  document.getElementById("n").onclick=()=>show(c.noReply,true,"scold");
   gg.onclick=()=>go("#guide");paint();
 }
 function guide(){
   const g=D.guide,done=S.done&&S.done.date===today()?S.done:{date:today()};S.done=done;
-  $.innerHTML=`${back()}<h1>${g.title}</h1><p class="sub">${g.intro}</p>${img("shower","stk")}
+  $.innerHTML=`${back()}<h1>${g.title}</h1><p class="sub">${g.intro}</p>${({delay:img("blanket","stk"),rough:img("shower","stk")})[S.type]||""}
   <div class="card">${g.steps.map((s,i)=>`<label class="step"><input type="checkbox" data-i="${i}" ${done[i]?"checked":""}> <span>${s}</span></label>`).join("")}</div>
   <div class="card"><b>내가 정하는 시간</b> <span class="small">(건강 기준이 아니라 나와의 약속이에요)</span>
   <div class="timer" id="tm">${String(g.timerDefaultMinutes).padStart(2,"0")}:00</div>
   <button class="primary" id="st">시작</button><button id="nx" disabled>다음</button><button id="en" disabled>종료</button></div>
-  <div id="fin" class="card" hidden>${g.done}${img("fresh","stk")}</div>`;
+  <div id="fin" class="card" hidden>${g.done}</div>`;
   const boxes=Array.from($.querySelectorAll("[data-i]")),tmEl=document.getElementById("tm"),stB=document.getElementById("st"),nxB=document.getElementById("nx"),enB=document.getElementById("en"),fin=document.getElementById("fin");
   const fmt=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
   const all=()=>fin.hidden=!boxes.every(x=>x.checked);
@@ -65,7 +65,7 @@ function guide(){
 function list(a){return a.length?`<ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
 function care(){
   const c=D.care,sec=c.sections;
-  $.innerHTML=`${back()}<h1>${c.title}</h1><p class="sub">${c.body}</p>${img("drag","stk")}
+  $.innerHTML=`${back()}<h1>${c.title}</h1><p class="sub">${c.body}</p>
   <div class="grid">${c.targets.map(t=>`<button data-id="${t.id}">${t.emoji} ${t.label}${t.ready?"":'<span class="badge">준비 중</span>'}</button>`).join("")}</div>
   <button class="primary" id="go" ${selTarget?"":"disabled"}>${c.button}</button><div id="out"></div>
   <div class="disclaimer" id="dis">${D.disclaimer}</div>`;

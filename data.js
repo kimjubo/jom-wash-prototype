@@ -16,7 +16,6 @@ window.APP_DATA = {
   art: {
     poster:   { src: "assets/art/poster.jpg",    alt: "좀 씻어라! 포스터" },
     scold:    { src: "assets/art/sticker1.png",  alt: "좀 씻어라! 하고 말하는 캐릭터" },
-    drag:     { src: "assets/art/sticker2.png",  alt: "같이 씻으러 가는 캐릭터" },
     shower:   { src: "assets/art/sticker3.png",  alt: "샤워 중인 캐릭터" },
     blanket:  { src: "assets/art/sticker4.png",  alt: "이불 속 캐릭터" },
     fresh:    { src: "assets/art/sticker5.png",  alt: "씻고 개운한 캐릭터" }
