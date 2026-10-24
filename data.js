@@ -12,6 +12,15 @@ window.APP_DATA = {
     "일반적인 생활 안내이며 수의사 상담을 대신하지 않아요. 피부나 행동이 평소와 다르면 수의사와 상담해 주세요.",
   helpLine: "혼자 하기 어렵거나 불안하면 도움을 받으세요.",
   adButton: "광고 보고 오늘의 개운 한마디 받기", // 보상형 광고(선택). 핵심 기능은 광고 없이 사용.
+  // 그림(주보 님 제공, 2026-10-24). 파일만 바꾸면 화면 그림이 바뀜. 장면별 배치는 app.js.
+  art: {
+    poster:   { src: "assets/art/poster.jpg",    alt: "좀 씻어라! 포스터" },
+    scold:    { src: "assets/art/sticker1.png",  alt: "좀 씻어라! 하고 말하는 캐릭터" },
+    drag:     { src: "assets/art/sticker2.png",  alt: "같이 씻으러 가는 캐릭터" },
+    shower:   { src: "assets/art/sticker3.png",  alt: "샤워 중인 캐릭터" },
+    blanket:  { src: "assets/art/sticker4.png",  alt: "이불 속 캐릭터" },
+    fresh:    { src: "assets/art/sticker5.png",  alt: "씻고 개운한 캐릭터" }
+  },
   typeNote: "언제든 바꿀 수 있어요.",
 
   // 화면 1: 유형 선택

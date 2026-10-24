@@ -11,9 +11,10 @@ function render(){
   ({home,check,guide,care}[r]||home)();
   window.scrollTo(0,0);
 }
+const img=(k,c)=>`<img class="art ${c}" src="${D.art[k].src}" alt="${D.art[k].alt}">`;
 const back=()=>`<button class="nav" onclick="location.hash='#home'">← 처음으로</button>`;
 function home(){
-  $.innerHTML=`<h1>${D.tagline}</h1><p class="sub">나는 어디에 가까울까요?</p>
+  $.innerHTML=`${img('poster','hero')}<h1>${D.tagline}</h1><p class="sub">나는 어디에 가까울까요?</p>
   ${D.types.map(t=>`<button data-t="${t.id}"><small class="goal">${t.goal}</small><b>${t.label}</b></button>`).join("")}
   <p class="small">${D.typeNote}</p>
   <h2>오늘의 개운 한마디</h2><button id="ad" class="ghost">${D.adButton}</button><p class="small mock"><b>시안 표시(실제 광고 아님)</b> · 광고 자리표시 버튼이며 SDK는 연결되어 있지 않아요.</p><div id="daily" class="small"></div>
@@ -29,26 +30,27 @@ const dayStr=o=>{const d=new Date();d.setDate(d.getDate()-o);return d.getFullYea
 function streak(){const ds=S.days||[];let o=ds.includes(dayStr(0))?0:1,n=0;while(ds.includes(dayStr(o))){n++;o++}return n}
 function check(){
   const c=D.check,ty=D.types.find(t=>t.id===S.type);
-  $.innerHTML=`${back()}<h1>${c.title}</h1><p class="sub">${esc((ty&&ty.line)||"")}</p>
+  $.innerHTML=`${back()}<h1>${c.title}</h1><p class="sub">${esc((ty&&ty.line)||"")}</p>${img("scold","stk")}
   <button id="y" class="primary"></button><button id="n">${c.no}</button><div id="r" class="card" hidden></div>
   <div class="card" id="sk"></div><button class="ghost" id="g" hidden>순서 보기</button>`;
   const yb=document.getElementById("y"),rr=document.getElementById("r"),gg=document.getElementById("g");
   function paint(){const on=(S.days||[]).includes(today());yb.textContent=on?"✔ "+c.yes+" (누르면 취소)":c.yes;yb.setAttribute("aria-pressed",on);
     const k=streak();document.getElementById("sk").innerHTML=`<b id="streak">${k}일 연속</b> <span class="small">${k?"이어 가고 있어요!":"오늘부터 시작해 봐요."}</span>`}
-  const show=(m,g)=>{rr.hidden=false;rr.textContent=pick(m);gg.hidden=!g};
+  const ci=$.querySelector('img.stk'),setImg=k=>{ci.src=D.art[k].src;ci.alt=D.art[k].alt};
+  const show=(m,g,k)=>{setImg(k);rr.hidden=false;rr.textContent=pick(m);gg.hidden=!g};
   yb.onclick=()=>{S.days=S.days||[];const t=today(),i=S.days.indexOf(t);
-    if(i>=0){S.days.splice(i,1);rr.hidden=true}else{S.days.push(t);show(c.yesReply,false)}save();paint()};
-  document.getElementById("n").onclick=()=>show(c.noReply,true);
+    if(i>=0){S.days.splice(i,1);rr.hidden=true;setImg('scold')}else{S.days.push(t);show(c.yesReply,false,'fresh')}save();paint()};
+  document.getElementById("n").onclick=()=>show(c.noReply,true,"blanket");
   gg.onclick=()=>go("#guide");paint();
 }
 function guide(){
   const g=D.guide,done=S.done&&S.done.date===today()?S.done:{date:today()};S.done=done;
-  $.innerHTML=`${back()}<h1>${g.title}</h1><p class="sub">${g.intro}</p>
+  $.innerHTML=`${back()}<h1>${g.title}</h1><p class="sub">${g.intro}</p>${img("shower","stk")}
   <div class="card">${g.steps.map((s,i)=>`<label class="step"><input type="checkbox" data-i="${i}" ${done[i]?"checked":""}> <span>${s}</span></label>`).join("")}</div>
   <div class="card"><b>내가 정하는 시간</b> <span class="small">(건강 기준이 아니라 나와의 약속이에요)</span>
   <div class="timer" id="tm">${String(g.timerDefaultMinutes).padStart(2,"0")}:00</div>
   <button class="primary" id="st">시작</button><button id="nx" disabled>다음</button><button id="en" disabled>종료</button></div>
-  <div id="fin" class="card" hidden>${g.done}</div>`;
+  <div id="fin" class="card" hidden>${g.done}${img("fresh","stk")}</div>`;
   const boxes=Array.from($.querySelectorAll("[data-i]")),tmEl=document.getElementById("tm"),stB=document.getElementById("st"),nxB=document.getElementById("nx"),enB=document.getElementById("en"),fin=document.getElementById("fin");
   const fmt=s=>String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
   const all=()=>fin.hidden=!boxes.every(x=>x.checked);
@@ -63,7 +65,7 @@ function guide(){
 function list(a){return a.length?`<ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
 function care(){
   const c=D.care,sec=c.sections;
-  $.innerHTML=`${back()}<h1>${c.title}</h1><p class="sub">${c.body}</p>
+  $.innerHTML=`${back()}<h1>${c.title}</h1><p class="sub">${c.body}</p>${img("drag","stk")}
   <div class="grid">${c.targets.map(t=>`<button data-id="${t.id}">${t.emoji} ${t.label}${t.ready?"":'<span class="badge">준비 중</span>'}</button>`).join("")}</div>
   <button class="primary" id="go" ${selTarget?"":"disabled"}>${c.button}</button><div id="out"></div>
   <div class="disclaimer" id="dis">${D.disclaimer}</div>`;
