@@ -16,4 +16,4 @@ button:disabled{opacity:.55}
 .mock{color:#b42318;margin:4px 0}.preview{margin-top:18px;padding:8px 10px;border:1px dashed #9aa8b4;border-radius:10px;text-align:center}
 .goal{display:block;font-size:12px;font-weight:700;color:#2f80ed;margin-bottom:2px}
 .src a{color:#2f80ed}
-.art{display:block;margin:8px auto;max-width:100%;height:auto}.hero{height:240px;width:auto;border-radius:14px}.stk{width:150px}
+.art{display:block;margin:8px auto;max-width:100%;height:auto}.hero{width:100%;height:auto;border-radius:14px}.stk{width:150px}
