@@ -14,7 +14,7 @@ function render(){
 const back=()=>`<button class="nav" onclick="location.hash='#home'">← 처음으로</button>`;
 function home(){
   $.innerHTML=`<h1>${D.tagline}</h1><p class="sub">나는 어디에 가까울까요?</p>
-  ${D.types.map(t=>`<button data-t="${t.id}"><b>${t.label}</b></button>`).join("")}
+  ${D.types.map(t=>`<button data-t="${t.id}"><small class="goal">${t.goal}</small><b>${t.label}</b></button>`).join("")}
   <p class="small">${D.typeNote}</p>
   <h2>오늘의 개운 한마디</h2><button id="ad" class="ghost">${D.adButton}</button><p class="small mock"><b>시안 표시(실제 광고 아님)</b> · 광고 자리표시 버튼이며 SDK는 연결되어 있지 않아요.</p><div id="daily" class="small"></div>
   <p class="small">광고는 선택이에요. 모든 기능은 광고 없이 쓸 수 있어요.</p>

@@ -15,10 +15,10 @@ window.APP_DATA = {
 
   // 화면 1: 유형 선택
   types: [
-    { id: "delay",  label: "자꾸 미뤄요",             line: "오늘 샤워, 딱 5분만 해 볼까요?",            go: "guide" },
-    { id: "forget", label: "자꾸 깜빡해요",           line: "오늘 씻었는지 기억나요?",                    go: "check" },
-    { id: "rough",  label: "씻긴 씻는데 대충 해요",   line: "씻긴 씻었는데, 빼먹은 데는 없나요?",         go: "guide" },
-    { id: "first",  label: "누구를 씻겨 본 적이 없어요", line: "누군가를 씻기는 건 처음이죠?",            go: "care" }
+    { id: "delay", goal: "바로 시작하기",  label: "자꾸 미뤄요",             line: "오늘 샤워, 딱 5분만 해 볼까요?",            go: "guide" },
+    { id: "forget", goal: "오늘 체크하기", label: "자꾸 깜빡해요",           line: "오늘 씻었는지 기억나요?",                    go: "check" },
+    { id: "rough", goal: "빠짐없이 씻기",  label: "씻긴 씻는데 대충 해요",   line: "씻긴 씻었는데, 빼먹은 데는 없나요?",         go: "guide" },
+    { id: "first", goal: "씻겨주기 배우기",  label: "누구를 씻겨 본 적이 없어요", line: "누군가를 씻기는 건 처음이죠?",            go: "care" }
   ],
 
   // 화면 2: 오늘 체크
