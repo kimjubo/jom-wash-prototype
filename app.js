@@ -72,12 +72,14 @@ function care(){
     const t=c.targets.find(x=>x.id===selTarget);if(!t){out.innerHTML="";return}
     document.getElementById("dis").textContent=t.pet?D.disclaimerPet:D.disclaimer;
     if(!t.ready){out.innerHTML=`<div class="card"><b>${t.label}</b> 안내는 준비 중이에요. 조금만 기다려 주세요.${t.needsHelpLine?`<p><b>${D.helpLine}</b></p>`:""}</div>`;return}
-    const nums=Object.values(c.numbers).map(n=>`<li>${n.label}: ${n.value?esc(n.value):'<span class="slot">수치 자리(출처 확인 후 입력)</span>'}</li>`).join("");
+    const facts=(t.facts||[]).map(n=>`<li>${esc(n.label)}: <b>${esc(n.value)}</b>${n.note?` <span class="small">(${esc(n.note)})</span>`:""}</li>`).join("");
+    const srcs=(t.sources||[]).map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join(" · ");
     out.innerHTML=`<p class="sub">${esc(t.intro)}</p>
     <div class="card"><b>${sec.prep}</b>${list(t.prep)}</div>
-    <div class="card"><b>${sec.steps}</b><ol>${t.steps.slice(0,5).map(x=>`<li>${esc(x)}</li>`).join("")}</ol><ul>${nums}</ul></div>
+    <div class="card"><b>${sec.steps}</b><ol>${t.steps.slice(0,5).map(x=>`<li>${esc(x)}</li>`).join("")}</ol>${facts?`<ul>${facts}</ul>`:""}</div>
     <div class="card"><b>${sec.caution}</b>${list(t.caution)}${t.needsHelpLine?`<p><b>${D.helpLine}</b></p>`:""}</div>
-    <div class="card"><b>${sec.after}</b>${list(t.after)}</div>`;
+    <div class="card"><b>${sec.after}</b>${list(t.after)}</div>
+    ${srcs?`<p class="small src">참고한 곳: ${srcs}</p>`:""}`;
   }
   $.querySelectorAll("[data-id]").forEach(b=>b.onclick=()=>{selTarget=b.dataset.id;go_.disabled=false;$.querySelectorAll("[data-id]").forEach(x=>x.style.outline=x===b?"2px solid #2f80ed":"");out.innerHTML="";const sel=c.targets.find(x=>x.id===selTarget);document.getElementById("dis").textContent=sel.pet?D.disclaimerPet:D.disclaimer});
   const go_=document.getElementById("go");go_.onclick=view;
