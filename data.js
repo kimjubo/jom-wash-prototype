@@ -13,6 +13,7 @@ window.APP_DATA = {
   helpLine: "혼자 하기 어렵거나 불안하면 도움을 받으세요.",
   adButton: "광고 보고 오늘의 개운 한마디 받기", // 보상형 광고(선택). 핵심 기능은 광고 없이 사용.
   // 그림(주보 님 제공, 2026-10-24). 파일만 바꾸면 화면 그림이 바뀜. 장면별 배치는 app.js.
+  version: "20261024c", // 이미지·화면 파일을 바꿀 때마다 올리면 폰 캐시가 새로 불러옴(index.html의 ?v=도 같이)
   art: {
     splash:   { src: "assets/art/poster_splash.jpg", alt: "좀 씻어라! 포스터" },
     poster:   { src: "assets/art/poster_wide.jpg",    alt: "좀 씻어라! 포스터" },

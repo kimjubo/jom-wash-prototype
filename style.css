@@ -18,3 +18,4 @@ button:disabled{opacity:.55}
 .src a{color:#2f80ed}
 .art{display:block;margin:8px auto;max-width:100%;height:auto}.hero{width:100%;height:auto;border-radius:14px}.stk{width:150px}
 #splash{position:fixed;inset:0;z-index:100;background:#f4f8fb;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;outline:0}#splash img{max-width:100%;max-height:calc(100% - 56px);object-fit:contain}#splash p{margin:10px 0 0;font-size:14px;color:#2f80ed;font-weight:700}
+#splash p.small{margin:2px 0 0;color:#8a96a0;font-weight:400}

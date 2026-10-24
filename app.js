@@ -11,7 +11,8 @@ function render(){
   ({home,check,guide,care}[r]||home)();
   window.scrollTo(0,0);
 }
-const img=(k,c)=>`<img class="art ${c}" src="${D.art[k].src}" alt="${D.art[k].alt}">`;
+const u=k=>D.art[k].src+"?v="+D.version;
+const img=(k,c)=>`<img class="art ${c}" src="${u(k)}" alt="${D.art[k].alt}">`;
 const back=()=>`<button class="nav" onclick="location.hash='#home'">← 처음으로</button>`;
 function home(){
   $.innerHTML=`${img('poster','hero')}<h1>${D.tagline}</h1><p class="sub">나는 어디에 가까울까요?</p>
@@ -36,7 +37,7 @@ function check(){
   const yb=document.getElementById("y"),rr=document.getElementById("r"),gg=document.getElementById("g");
   function paint(){const on=(S.days||[]).includes(today());yb.textContent=on?"✔ "+c.yes+" (누르면 취소)":c.yes;yb.setAttribute("aria-pressed",on);
     const k=streak();document.getElementById("sk").innerHTML=`<b id="streak">${k}일 연속</b> <span class="small">${k?"이어 가고 있어요!":"오늘부터 시작해 봐요."}</span>`}
-  const ci=$.querySelector('img.stk'),setImg=k=>{ci.src=D.art[k].src;ci.alt=D.art[k].alt};
+  const ci=$.querySelector('img.stk'),setImg=k=>{ci.src=u(k);ci.alt=D.art[k].alt};
   const show=(m,g,k)=>{setImg(k);rr.hidden=false;rr.textContent=pick(m);gg.hidden=!g};
   yb.onclick=()=>{S.days=S.days||[];const t=today(),i=S.days.indexOf(t);
     if(i>=0){S.days.splice(i,1);rr.hidden=true;setImg('scold')}else{S.days.push(t);show(c.yesReply,false,'fresh')}save();paint()};
@@ -90,10 +91,11 @@ window.addEventListener("hashchange",render);render();
 // 진입 화면: 세로 포스터를 보여 주고, 누르면 메인 화면으로 넘어감. 세션당 한 번, 홈으로 들어올 때만.
 (function(){
   const h=location.hash;if(sessionStorage.getItem("splash")||(h&&h!=="#home"))return;
-  const s=document.createElement("div");s.id="splash";s.setAttribute("role","button");s.tabIndex=0;s.setAttribute("aria-label","화면을 눌러 시작하기");
-  s.innerHTML=`<img src="${D.art.splash.src}" alt="${D.art.splash.alt}"><p>화면을 눌러 시작하기</p>`;
-  const close=()=>{sessionStorage.setItem("splash","1");s.remove();window.scrollTo(0,0)};
-  s.onclick=close;s.onkeydown=e=>{if(e.key==="Enter"||e.key===" ")close()};
+  const s=document.createElement("div");s.id="splash";s.setAttribute("role","button");s.tabIndex=0;s.setAttribute("aria-label","화면을 눌러 시작해요");
+  s.innerHTML=`<img src="${u('splash')}" alt="${D.art.splash.alt}"><p>화면을 눌러 시작해요</p><p class="small">미리보기용 시안</p>`;
+  s.querySelector("img").onerror=close;
+  function close(){sessionStorage.setItem("splash","1");s.remove();window.scrollTo(0,0)}
+  s.onclick=close;s.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();close()}};
   document.body.appendChild(s);s.focus();
 })();
 })();
